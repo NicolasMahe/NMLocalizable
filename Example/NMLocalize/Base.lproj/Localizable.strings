@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  NMLocalize
+
+  Created by Nicolas Mahé on 25/11/2016.
+  Copyright © 2016 Nicolas Mahé. All rights reserved.
+*/
+
+"first_string" = "Hello";
+
+"second_string" = "Example of translated string";
+
+"third_string_with_paramter" = "My name is %@ and I'm %d years old";

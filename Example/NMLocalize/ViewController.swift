@@ -7,18 +7,25 @@
 //
 
 import UIKit
+import NMLocalize
 
 class ViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+  @IBOutlet weak var label: UILabel!
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    //this string are localize in the Localizable.strings file
+    var message = L("first_string") + "\n"
+    message += L("second_string") + "\n"
+    
+    //localize string with arguments
+    message += L("third_string_with_paramter", "Nicolas", 25) + "\n"
+    
+    message += "Preferred language: " + Localize.preferredLanguage
+    
+    self.label.text = message
+  }
 }
 

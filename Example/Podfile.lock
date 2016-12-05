@@ -1,0 +1,16 @@
+PODS:
+  - NMLocalize (0.1.0)
+
+DEPENDENCIES:
+  - NMLocalize (from `../`)
+
+EXTERNAL SOURCES:
+  NMLocalize:
+    :path: ../
+
+SPEC CHECKSUMS:
+  NMLocalize: a2ab31e34ff471d0b30ed3a4666b88ea04cc0c75
+
+PODFILE CHECKSUM: aa5e0a69dc120cb6e82df63b6147bb789074328b
+
+COCOAPODS: 1.1.1
