@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'NMLocalize_Example' do
+  pod 'NMLocalize', :path => '../'
+
+  target 'NMLocalize_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
