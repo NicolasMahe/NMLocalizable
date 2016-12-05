@@ -20,6 +20,32 @@ it, simply add the following line to your Podfile:
 pod "NMLocalize"
 ```
 
+## Extract Localizable String from swift files
+
+To extract localizable string (eg: `L("your_localizable_string")`) from all your swift files, you can use the `ExtractLocalizableString.exec` bin from this repo.
+
+### Utilisation
+
+```
+$ ExtractLocalizableString.exec arg1 arg2 (arg3)
+```
+
+#### Arg1
+Argi1 is the path to the project where the swift file are. Be carefull to put an `/` at the end of the path.
+
+#### Arg2
+Argi2 is the path to the localizable file.
+
+#### Arg3 - Optional
+Argi3 is optional and force the value of new Localizable string
+
+### Example
+
+```
+$ ExtractLocalizableString.exec /path/to/your/project/ /path/to/your/project/fr.lproj/Localizable.strings TO_TRANSLATE
+```
+
+
 ## Author
 
 Nicolas Mahé, nicolas@mahe.me
