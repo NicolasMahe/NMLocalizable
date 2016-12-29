@@ -23,6 +23,10 @@ public func L(_ string: String, bundle: Bundle = Bundle.main, _ args: CVarArg...
   let localized = NSLocalizedString(string, bundle: bundle, comment: "")
   return String(format: localized, arguments: args)
 }
+public func L(_ string: String, bundle: Bundle = Bundle.main, arguments: [CVarArg]) -> String {
+  let localized = NSLocalizedString(string, bundle: bundle, comment: "")
+  return String(format: localized, arguments: arguments)
+}
 
 open class Localize {
   
