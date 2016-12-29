@@ -11,16 +11,16 @@ import UIKit
 /**
  Shortcut function for NSLocalizedString
  */
-public func L(_ string: String) -> String {
-  let localized = NSLocalizedString(string, comment: "")
+public func L(_ string: String, bundle: Bundle = Bundle.main) -> String {
+  let localized = NSLocalizedString(string, bundle: bundle, comment: "")
   return localized
 }
 
 /**
  Shortcut function for NSLocalizedString with arguments
  */
-public func L(_ string: String, _ args: CVarArg...) -> String {
-  let localized = NSLocalizedString(string, comment: "")
+public func L(_ string: String, bundle: Bundle = Bundle.main, _ args: CVarArg...) -> String {
+  let localized = NSLocalizedString(string, bundle: bundle, comment: "")
   return String(format: localized, arguments: args)
 }
 
@@ -31,12 +31,12 @@ open class Localize {
    */
   open class var preferredLanguage: String {
     let preferredLanguage = NSLocale.preferredLanguages
-      .map { (l: String) -> String? in
+      .flatMap { (l: String) -> String? in
         return l.components(separatedBy: "-").first
       }
       .first
     
-    return (preferredLanguage ?? "none")!
+    return preferredLanguage!
   }
   
 }
