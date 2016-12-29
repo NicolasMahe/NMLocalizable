@@ -13,7 +13,7 @@ import Foundation
 //----------------------------------------------------------------------------
 
 let extensionOfFiles = ".swift"
-let regexPattern = "L\\(\"(.+?)\"(,.+\"?)?\\)"
+let regexPattern = "L\\(\"(.+?)\""
 
 let regexPatternStringFile = "\"(.+)\" = \"(.+)\";"
 let stringFilePattern = "\"%@\" = \"%@\";"
@@ -133,7 +133,7 @@ do {
   }
 }
 catch {
-  print("error while oponing string file")
+  print("error while oponing string file") //@todo: this error appear also when the file doesn't exist
 }
 
 
