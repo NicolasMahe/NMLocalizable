@@ -28,7 +28,7 @@ public func L(_ string: String, bundle: Bundle = Bundle.main, arguments: [CVarAr
   return String(format: localized, arguments: arguments)
 }
 
-open class Localize {
+open class NMLocalize {
   
   /**
    Get the first preferred language of the device
