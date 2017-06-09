@@ -43,4 +43,12 @@ open class NMLocalize {
     return preferredLanguage!
   }
   
+  //----------------------------------------------------------------------------
+  // MARK: - Region
+  //----------------------------------------------------------------------------
+  
+  public class var region: String {
+    return NSLocale.current.regionCode ?? "US"
+  }
+  
 }
