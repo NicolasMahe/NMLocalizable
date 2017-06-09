@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'NMLocalize'
-  s.version          = '0.0.5'
+  s.version          = '0.0.6'
   s.summary          = 'Shortcut for NSLocalizedString'
   s.description      = <<-DESC
 Easily translate your app with 'L' functions
