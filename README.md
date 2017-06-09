@@ -27,22 +27,25 @@ To extract localizable string (eg: `L("your_localizable_string")`) from all your
 ### Utilisation
 
 ```
-$ ExtractLocalizableString.exec arg1 arg2 (arg3)
+$ ExtractLocalizableString.exec arg1 arg2 (arg3) (arg4)
 ```
 
-#### Arg1
+#### Arg1 - Project path
 Argi1 is the path to the project where the swift file are. Be carefull to put an `/` at the end of the path.
 
-#### Arg2
+#### Arg2 - Localizable file
 Argi2 is the path to the localizable file.
 
-#### Arg3 - Optional
+#### Arg3 - Default string (Optional)
 Argi3 is optional and force the value of new Localizable string
+
+#### Arg4 - Should remove unused string (Optional)
+Argi4 is optional and indicate if unused strings should be remove. should be a bool
 
 ### Example
 
 ```
-$ ExtractLocalizableString.exec /path/to/your/project/ /path/to/your/project/fr.lproj/Localizable.strings TO_TRANSLATE
+$ ExtractLocalizableString.exec /path/to/your/project/ /path/to/your/project/fr.lproj/Localizable.strings TO_TRANSLATE true
 ```
 
 

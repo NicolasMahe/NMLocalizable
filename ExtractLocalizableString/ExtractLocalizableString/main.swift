@@ -8,6 +8,9 @@
 
 import Foundation
 
+//@todo: improve on
+//L("Start creating your healthy menu by pressing the \"Create new menu\" button on the \"Menu\" page.")
+
 //----------------------------------------------------------------------------
 // MARK: - Options
 //----------------------------------------------------------------------------
@@ -15,10 +18,12 @@ import Foundation
 let extensionOfFiles = ".swift"
 let regexPattern = "L\\(\"(.+?)\""
 
-let regexPatternStringFile = "\"(.+)\" = \"(.+)\";"
+let regexPatternStringFile = "\"?(.+?)\"? = \"(.+)\";"
 let stringFilePattern = "\"%@\" = \"%@\";"
 
 var forceDefaultValue: String? = nil
+
+var removeUnsed: Bool = false
 
 //----------------------------------------------------------------------------
 // MARK: - Console arguments
@@ -34,6 +39,9 @@ let path = CommandLine.arguments[1]
 let stringFilePath = CommandLine.arguments[2]
 if CommandLine.arguments.count > 3 {
   forceDefaultValue = CommandLine.arguments[3]
+}
+if CommandLine.arguments.count > 4 {
+  removeUnsed = (CommandLine.arguments[4] as NSString).boolValue
 }
 
 print("Will analyze folder " + path)
@@ -64,6 +72,16 @@ extension Array where Element: LocalizableString {
     return self.contains { (e: Element) -> Bool in
       return m.key == e.key
     }
+  }
+  
+  func deduplicate() -> [LocalizableString] {
+    var clean = [LocalizableString]()
+    self.forEach { (string: LocalizableString) in
+      if clean.contains(string) == false {
+        clean.append(string)
+      }
+    }
+    return clean
   }
   
 }
@@ -186,42 +204,42 @@ swiftFiles.forEach { (file: String) in
   }
 }
 
-//
-//#3 Remove duplicates localizable string from newLocalizableStrings
-//
-var newLocalizableStringsFiltered = [LocalizableString]()
-newLocalizableStrings.forEach { (match: LocalizableString) in
-  if newLocalizableStringsFiltered.contains(match) == false {
-    newLocalizableStringsFiltered.append(match)
-  }
-}
-newLocalizableStrings = newLocalizableStringsFiltered
-
-
+//Remove duplicate
+newLocalizableStrings = newLocalizableStrings.deduplicate()
 
 var numberOfKeepedLocalizable = 0
 var numberOfAddedLocalizable = 0
 
 //
-//#3 Merge existingLocalizableStrings and newLocalizableStrings
-//   Keep only string that are in newLocalizableStrings
+//#3 Remove duplicates localizable string from newLocalizableStrings
 //
-newLocalizableStrings.forEach { (new: LocalizableString) in
-  if let old = existingLocalizableStrings.get(new) {
-    cleanlocalizableStrings.append(old)
-    numberOfKeepedLocalizable += 1
+if removeUnsed == true {
+  //
+  //#4 Keep only string that are in newLocalizableStrings
+  //
+  newLocalizableStrings.forEach { (new: LocalizableString) in
+    if let old = existingLocalizableStrings.get(new) {
+      cleanlocalizableStrings.append(old)
+      numberOfKeepedLocalizable += 1
+    }
+    else {
+      cleanlocalizableStrings.append(new)
+      numberOfAddedLocalizable += 1
+    }
   }
-  else {
-    cleanlocalizableStrings.append(new)
-    numberOfAddedLocalizable += 1
-  }
+}
+else {
+  cleanlocalizableStrings = (existingLocalizableStrings + newLocalizableStrings).deduplicate()
+
+  numberOfKeepedLocalizable = existingLocalizableStrings.count
+  numberOfAddedLocalizable = newLocalizableStrings.count - existingLocalizableStrings.count
 }
 
 
 let numberOfRemovedLocalizable = existingLocalizableStrings.count - numberOfKeepedLocalizable
 
 //Sort
-cleanlocalizableStrings.sort(by: LocalizableString.sort)
+//cleanlocalizableStrings.sort(by: LocalizableString.sort)
 
 //Put all match in the string file
 let stringFileNewContent = cleanlocalizableStrings.reduce("") { (r: String, match: LocalizableString) -> String in
